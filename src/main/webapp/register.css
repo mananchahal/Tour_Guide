@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+body {
+	background: url(bgreg.jpg) no-repeat center fixed;
+	background-size: cover;
+	font-family: "Trirong", serif;
+	font-weight: bold;
+	display: block;
+}
+
+.main{
+    background-color: rgba(255, 255, 255, 0.536);
+    padding: 20px 20px;
+    text-align: left;
+    width: 350px;
+    border-radius: 15px;
+    height: 550px;
+    box-shadow: 1px 1px 20px rgb(0, 0, 0);
+    position: absolute;
+    top: 10%;
+    left: 15%;
+}
+
+.main input{
+    font-size: 20px;
+    outline: none;
+    border: none;
+    width: 335px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.main h1{
+    border-bottom: 3px solid rgb(249, 20, 20);
+    text-align: center;
+}
+
+.main td{
+    font-size: 22px;
+}
+
+.main #btn{
+    margin-top: 40px;
+    font-weight: bold;
+    width: 200px;
+    font-size: 22px;
+    padding: 7px 10px;
+    border-radius: 100px;
+    background-color: rgba(236, 27, 27, 0.878);
+}
+
+.main #btn:hover{
+    background-color: rgb(251, 56, 56);
+}

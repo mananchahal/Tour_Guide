@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+body {
+	background: url(bgwel2.jpg) no-repeat center fixed;
+	background-size: cover;
+	font-family: "Trirong", serif;
+	font-weight: bold;
+	display: block;
+}
+
+.main{
+    background-color: rgba(255, 255, 255, 0.673);
+    padding: 20px 20px;
+    text-align: left;
+    width: 350px;
+    border-radius: 15px;
+    height: 500px;
+    box-shadow: 1px 1px 20px rgb(0, 0, 0);
+    position: absolute;
+    top: 12%;
+    left: 65%;
+}
+
+.main input{
+    font-size: 20px;
+    outline: none;
+    border: none;
+    width: 335px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.main h1{
+    border-bottom: 3px solid blueviolet;
+    text-align: center;
+}
+
+.main td{
+    font-size: 22px;
+}
+
+.main #btn{
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background-color: rgba(162, 81, 238, 0.837);
+}
+
+.main #btn:hover{
+    background-color: rgba(134, 25, 235, 0.837);
+}
+
+.reg{
+    margin-top: 40px;
+    text-align: center;
+}
+
+.reg p{
+    font-size: 18px;
+}
+
+.reg a{
+    text-decoration: none;
+    color: blueviolet;
+
+}

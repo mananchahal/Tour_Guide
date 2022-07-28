@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="with=device-width , initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Trirong&effect=shadow-multiple">
+<title>Tour Guide</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<style type="text/css">
+#main-panel b {
+	font-size: 23px;
+}
+
+#main-panel select, #main-panel input {
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid rgb(84, 121, 177);
+	margin: 10px 0;
+}
+
+#main-panel select {
+	width: 100%;
+}
+
+#main-panel i {
+	font-size: 12px;
+}
+
+#main-panel .btn {
+	text-align: center;
+}
+
+html, body {
+	background: url(bgmap.jpg) no-repeat center fixed;
+	background-size: cover;
+	height: 90%;
+	font-family: "Trirong", serif;
+	font-weight: bold;
+	display: block;
+}
+
+#header {
+	width: 100%;
+	display: inline-block;
+}
+
+#map {
+	float: right;
+	width: 70%;
+	height: 95%;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#main-panel {
+	margin-left: 10px;
+	border-width: 2px;
+	width: 24%;
+	float: left;
+	text-align: left;
+	padding-top: 0;
+}
+
+#directions-route {
+	margin-top: 10px;
+	background-color: lightblue;
+	font-size: 14px;
+	padding: 0px 20px;
+}
+
+#submit_btn {
+	cursor: pointer;
+	border-radius: 10px;
+	font-weight: bolder;
+	font-size: 18px;
+	width: 50%;
+}
+
+#submit_btn:hover {
+	background-color: lightblue;
+}
+</style>
+<script>
+        function initMap() {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 6,
+                center: { lat: 22.611055454616626, lng: 70.72304745531825 },
+            });
+            directionsRenderer.setMap(map);
+            document.getElementById("submit_btn").addEventListener("click", () => {
+                calculateDisplayRoutes(directionsService, directionsRenderer);
+            });
+        }
+
+        function calculateDisplayRoutes(directionsService, directionsRenderer) {
+            const waypts = [];
+            const checkboxArray = document.getElementById("waypoints");
+
+            for (let i = 0; i < checkboxArray.length; i++) {
+            if (checkboxArray.options[i].selected) {
+             waypts.push({
+             location: checkboxArray[i].value,
+             stopover: true,
+              });
+                }
+             }
+
+            directionsService.route({
+                origin: document.getElementById("start").value,
+                destination: document.getElementById("end").value,
+                waypoints: waypts,
+                optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+            },(response, status) => {
+                if (status === "OK" && response) {
+                    directionsRenderer.setDirections(response);
+                    const route = response.routes[0];
+                    const summaryPanel = document.getElementById("directions-route");
+                    summaryPanel.innerHTML = "";
+
+                    // For each route, display summary information.
+                    for (let i = 0; i < route.legs.length; i++) {
+                        const routeSegment = i + 1;
+                        summaryPanel.innerHTML +=
+                        "<b>Route Segment: " + routeSegment + "</b><br>";
+                        summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+                        summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+                        summaryPanel.innerHTML +=
+                        route.legs[i].distance.text + "<br><br>";
+                    }
+                } else {
+                    window.alert("Directions request failed due to " + status);
+                }
+            }
+        );
+    }
+    </script>
+</head>
+<body>
+	<div id="header" align="center">
+		<h1>Welcome to Tour Guide System</h1>
+	</div>
+	<hr>
+
+	<div id="map"></div>
+	<div id="main-panel">
+		<div>
+			<b>Start:</b> <select id="start">
+				<option value="New Delhi Railway Station, Bhavbhuti Marg">New
+					Delhi Railway Station, Bhavbhuti Marg</option>
+				<option value="Gandhi Smriti">Gandhi Smriti</option>
+				<option value="India Gate">India Gate</option>
+				<option value="Rashtrapati Bhavan">Rashtrapati Bhavan</option>
+				<option value="Qutub Minar">Qutub Minar</option>
+				<option value="Lotus Temple">Lotus Temple</option>
+				<option value="Akshardham Temple">Akshardham Temple</option>
+			</select> <b>Waypoints:</b> <br /> <select multiple id="waypoints">
+				<option value="Gandhi Smriti">Gandhi Smriti</option>
+				<option value="India Gate">India Gate</option>
+				<option value="Rashtrapati Bhavan">Rashtrapati Bhavan</option>
+				<option value="Qutub Minar">Qutub Minar</option>
+				<option value="Lotus Temple">Lotus Temple</option>
+				<option value="Akshardham Temple">Akshardham Temple</option>
+
+			</select> <b>End:</b> <select id="end">
+				<option value="New Delhi Railway Station, Bhavbhuti Marg">New
+					Delhi Railway Station, Bhavbhuti Marg</option>
+				<option value="Gandhi Smriti">Gandhi Smriti</option>
+				<option value="India Gate">India Gate</option>
+				<option value="Rashtrapati Bhavan">Rashtrapati Bhavan</option>
+				<option value="Qutub Minar">Qutub Minar</option>
+				<option value="Lotus Temple">Lotus Temple</option>
+				<option value="Akshardham Temple">Akshardham Temple</option>
+
+			</select>
+			<div class="btn">
+				<input type="submit" id="submit_btn" />
+			</div>
+		</div>
+		<div id="directions-route"></div>
+	</div>
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAoKQLHah3tfC-Hq0ikM4np-LDwptN2Y&callback=initMap">
+    
+</script>
+</body>
+</html>
